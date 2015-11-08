@@ -1,0 +1,15 @@
+/bin/
+/target/
+
+#Exclude compressed unrelavant documents.
+*.jar
+*.zip
+*.gz
+**/*.zip
+**/*.gz
+**/*.jar
+
+#Exclude editor files.
+/.settings/
+.classpath
+.project

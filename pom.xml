@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Moonlight</groupId>
+  <artifactId>MicroGames</artifactId>
+  <version>0.0.1</version>
+  <name>MicroGames</name>
+  <description>Various very small games that are shipped together.</description>
+  <prerequisites>
+    <maven>3.1.0</maven>
+  </prerequisites>
+  <properties>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>tests</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>testresources</directory>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source/>
+          <target/>
+        </configuration>
+      </plugin>
+
+      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>2.4</version>
+		<configuration>
+			<useDefaultManifestFile>true</useDefaultManifestFile>
+		</configuration>
+		<executions>
+			<execution>
+				<id>test-files</id>
+				<goals>
+					<goal>test-jar</goal>
+				</goals>
+			</execution>
+			<execution>
+				<id>src-files</id>
+				<goals>
+					<goal>jar</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+
+
+    </plugins>
+  </build>
+  <reporting>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.codehaus.mojo</groupId>
+  			<artifactId>cobertura-maven-plugin</artifactId>
+  			<version>2.7</version>
+  			</plugin>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-pmd-plugin</artifactId>
+  			<version>3.2</version>
+  			<configuration>
+  				<rulesets>
+  					<ruleset>pmd.xml</ruleset>
+  				</rulesets>
+  			</configuration>
+  		</plugin>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-checkstyle-plugin</artifactId>
+  			<version>2.14</version>
+  			<configuration>
+  				<failOnViolation>false</failOnViolation>
+  				<configLocation>checkstyle.xml</configLocation>
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </reporting>
+
+  <dependencies>
+  <!-- Building -->
+  <!-- None yet! -->
+
+  <!--  Testing -->
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.11</version>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>cobertura-maven-plugin</artifactId>
+		<version>2.7</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-pmd-plugin</artifactId>
+		<version>3.2</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-checkstyle-plugin</artifactId>
+		<version>2.14</version>
+		<scope>test</scope>
+	</dependency>
+  </dependencies>
+</project>
