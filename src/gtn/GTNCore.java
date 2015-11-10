@@ -21,14 +21,21 @@ import javax.swing.JOptionPane;
 public class GTNCore {
 	
 	/**
-	 * The random number generator.
-	 */
-	private Random random;
-	
-	/**
 	 * Maximum number.
 	 */
 	private static final int MAX_NUMBER = 100000;
+	
+	/**
+	 * The error message when an invalid input is inserted.
+	 */
+	public static final String WRONG_INPUT_MESSAGE = 
+			"Only numbers are allowed. The requested number is"
+			+ " between 0 and " + MAX_NUMBER;
+	
+	/**
+	 * The random number generator.
+	 */
+	private Random random;
 	
 	/**
 	 * The number that is the current value.
@@ -41,16 +48,25 @@ public class GTNCore {
 	private int guesses;
 	
 	/**
-	 * Keeps track of whether or not to continue.
+	 * The GUI used.
 	 */
-	private boolean continues;
+	private GTNComponent gui;
 
 	/**
 	 * Generates a new Guess The Number Core Instance.
+	 * @param translator the translator used.
 	 */
 	public GTNCore() {
 		random = new Random();
 		getNextNumber();
+	}
+	
+	/**
+	 * Sets the GUI to post to.
+	 * @param gui The gui to post to.
+	 */
+	public void setGUI(GTNComponent gui) {
+		this.gui = gui;
 	}
 	
 	/**
@@ -83,30 +99,23 @@ public class GTNCore {
 	 * @param message The message that needs announcing.
 	 */
 	public void post(String message) {
-		System.out.println(message);
+		if (gui == null) {
+			System.out.println(message);
+		} else {
+			gui.post(message);
+		}
 	}
 	
 	/**
 	 * Asks if a retry is preffered or if the game should stop.
 	 */
 	protected void retry() {
-		final boolean retry = askForRetry();
+		final boolean retry = gui.askForRetry();
 		if (retry) {
 			getNextNumber();
-			gameloop();
 		} else {
-			exit();
+			gui.exit();
 		}
-	}
-	
-	/**
-	 * Asks for the retry.
-	 * @return {@code true} If a retry is preferable.
-	 */
-	boolean askForRetry() {
-		return JOptionPane.showConfirmDialog(null,
-				"Will you retry?", "Retry", JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
 	}
 	
 	/**
@@ -125,28 +134,20 @@ public class GTNCore {
 		return guesses;
 	}
 	
-	public void gameloop() {
-		while (continues) {
-			handleInput();
-		}
-	}
-	
 	/**
-	 * Exits the number guessing game.
+	 * Parses the message that results in a guess.
+	 * @param message The message to parse.
 	 */
-	public void exit() {
-		continues = false;
-	}
-	
-	protected void handleInput() {
-		Scanner sc = new Scanner(System.in);
-		try {
-			guess(sc.nextInt());
-		} catch(InputMismatchException e) {
-			post("Only numbers are allowed. The Secret number is"
-					+ " between 0 and " + MAX_NUMBER);
-		} finally {
-			sc.close();
+	protected void handleInput(String message) {
+		if (message.matches("-?\\d+")) {
+			try {
+				guess(Integer.parseInt(message));
+			} catch (NumberFormatException e) {
+				post(WRONG_INPUT_MESSAGE);
+				post("The number " + message + " was not parsable");
+			}
+		} else {
+			post(WRONG_INPUT_MESSAGE);
 		}
 	}
 }

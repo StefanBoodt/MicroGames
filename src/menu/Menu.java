@@ -3,6 +3,7 @@ package menu;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 /**
@@ -40,13 +41,33 @@ public class Menu extends JFrame {
 		this.setVisible(true);
 		this.setTitle("MicroGames");
 		this.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-		this.getContentPane().setBackground(Color.BLACK);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setMainMenu();
 	}
 	
+	/**
+	 * Sets the main menu of the program.
+	 */
+	public void setMainMenu() {
+		this.removeAll();
+		this.getContentPane().setBackground(Color.BLACK);
+	}
+	
+	/**
+	 * Sets the component to be displayed.
+	 * @param main The component that has to be displayed next.
+	 */
+	public void setComponent(JComponent main) {
+		this.removeAll();
+		this.add(main);
+	}
+	
+	/**
+	 * Starts the program.
+	 * @param args Ignored.
+	 */
 	public static void main(String[] args) {
 		new Menu();
 	}
-
 }
