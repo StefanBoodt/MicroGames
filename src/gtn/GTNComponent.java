@@ -1,10 +1,14 @@
 package gtn;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -22,12 +26,17 @@ import menu.Menu;
  * @author stefanboodt
  *
  */
-public class GTNComponent extends JComponent implements ActionListener {
+public class GTNComponent extends JPanel implements ActionListener {
 
 	/**
 	 * Serial number.
 	 */
 	private static final long serialVersionUID = 135006579682669859L;
+	
+	/**
+	 * Key to start the GTN game.
+	 */
+	public static final String ID = "GTN";
 	
 	/**
 	 * The area that records the history.
@@ -60,9 +69,17 @@ public class GTNComponent extends JComponent implements ActionListener {
 		core.setGUI(this);
 		answerbox.addActionListener(this);
 		history.setEditable(false);
-		this.add(history);
+		history.setBackground(Color.WHITE);
+		JScrollPane scroller = new JScrollPane(history);
+		scroller.setPreferredSize(new 
+				Dimension(Menu.DEFAULT_WIDTH,
+						(int) (0.8 * Menu.DEFAULT_HEIGHT)));
+		answerbox.setPreferredSize(new 
+				Dimension(Menu.DEFAULT_WIDTH,
+						(int) (0.2 * Menu.DEFAULT_HEIGHT)));
+		this.add(scroller);
 		this.add(answerbox);
-		menu.add(this);
+		this.menu = menu;
 	}
 
 	@Override

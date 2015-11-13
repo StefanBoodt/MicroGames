@@ -1,10 +1,6 @@
 package gtn;
 
-import java.util.InputMismatchException;
 import java.util.Random;
-import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 /**
  * This class provides the core behaviour of the guess the number
@@ -146,6 +142,8 @@ public class GTNCore {
 				post(WRONG_INPUT_MESSAGE);
 				post("The number " + message + " was not parsable");
 			}
+		} else if (message.equals("menu")) {
+			gui.exit();
 		} else {
 			post(WRONG_INPUT_MESSAGE);
 		}

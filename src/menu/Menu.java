@@ -1,10 +1,18 @@
 package menu;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import gtn.GTNComponent;
 
 /**
  * This class generates the general window of the microgames program.
@@ -13,11 +21,12 @@ import javax.swing.JFrame;
  * @version 0.1
  * 
  * @see JFrame
+ * @see ActionListener
  * 
  * @author stefanboodt
  *
  */
-public class Menu extends JFrame {
+public class Menu extends JFrame implements ActionListener {
 
 	/**
 	 * Serial number.
@@ -27,40 +36,96 @@ public class Menu extends JFrame {
 	/**
 	 * The default width.
 	 */
-	private static final int DEFAULT_WIDTH = 1000;
+	public static final int DEFAULT_WIDTH = 1000;
 	
 	/**
 	 * The default height.
 	 */
-	private static final int DEFAULT_HEIGHT = 600;
+	public static final int DEFAULT_HEIGHT = 600;
+	
+	/**
+	 * The menu used to direct the people and start the app.
+	 */
+	private final JComponent menu;
+	
+	/**
+	 * The cards to flip with the different layouts.
+	 */
+	private JPanel cards;
+	
+	/**
+	 * The ID for this class.
+	 */
+	public static final String ID = "Main Menu";
 	
 	/**
 	 * Creates a new menu for the game.
 	 */
 	public Menu() {
-		this.setVisible(true);
+		cards = new JPanel(new CardLayout());
+		menu = new JPanel();
 		this.setTitle("MicroGames");
 		this.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		createMainMenu();
+		this.add(cards);
+		this.setVisible(true);
+	}
+	
+	/**
+	 * Creates the main menu.
+	 */
+	private void createMainMenu() {
+		menu.setBackground(Color.BLACK);
+		cards.add(menu, ID);
+		addCard("Guess the number", new GTNComponent(this),
+				GTNComponent.ID);
 		setMainMenu();
 	}
 	
 	/**
-	 * Sets the main menu of the program.
+	 * Sets the main menu of the program. Equivalent to
+	 * {@link setComponent(String)} with {@link ID} as
+	 * value.
 	 */
 	public void setMainMenu() {
-		this.removeAll();
-		this.getContentPane().setBackground(Color.BLACK);
+		
+		setComponent(ID);
+	}
+	
+	/**
+	 * Adds Component comp under name id to a button with text
+	 * buttontext.
+	 * @param buttontext The text on the button.
+	 * @param comp The component to add.
+	 * @param id The Id of the component.
+	 */
+	public void addCard(String buttontext, JComponent comp,
+			String id) {
+		JButton button = new JButton(buttontext);
+		button.setActionCommand(id);
+		button.setSize(DEFAULT_WIDTH/6, DEFAULT_HEIGHT/4);
+		button.addActionListener(this);
+		menu.add(button);
+		cards.add(comp, id);
 	}
 	
 	/**
 	 * Sets the component to be displayed.
-	 * @param main The component that has to be displayed next.
+	 * @param id The id used to add the component under.
 	 */
-	public void setComponent(JComponent main) {
-		this.removeAll();
-		this.add(main);
+	public void setComponent(String id) {
+		if (cards.getLayout() instanceof CardLayout) {
+			CardLayout cardlayout = (CardLayout) cards.getLayout();
+			cardlayout.show(cards, id);
+			System.out.println("Now displaying: " + id);
+			System.out.println("CardLayout = " + cardlayout.toString());
+		} else {
+			JOptionPane.showMessageDialog(null, "Internal error:"
+					+ " card layout requirement is violated.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	/**
@@ -69,5 +134,16 @@ public class Menu extends JFrame {
 	 */
 	public static void main(String[] args) {
 		new Menu();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * This class only checks if it is possible to load a program
+	 * with the given id.
+	 * @param e The ActionEvent fired.
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		setComponent(e.getActionCommand());
 	}
 }
