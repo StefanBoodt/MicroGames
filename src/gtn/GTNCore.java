@@ -107,11 +107,10 @@ public class GTNCore {
 	 */
 	protected void retry() {
 		final boolean retry = gui.askForRetry();
-		if (retry) {
-			getNextNumber();
-		} else {
+		if (!retry) {
 			gui.exit();
 		}
+		getNextNumber();
 	}
 	
 	/**

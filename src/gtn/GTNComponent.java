@@ -96,6 +96,7 @@ public class GTNComponent extends JPanel implements ActionListener {
 	 */
 	public void exit() {
 		menu.setMainMenu();
+		history.setText("");
 	}
 	
 	/**
