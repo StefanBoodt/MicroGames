@@ -44,6 +44,11 @@
 		<version>2.4</version>
 		<configuration>
 			<useDefaultManifestFile>true</useDefaultManifestFile>
+			<archive> 
+				<manifest>
+					<mainClass>menu.Menu</mainClass>
+				</manifest>
+			</archive>
 		</configuration>
 		<executions>
 			<execution>

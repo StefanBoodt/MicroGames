@@ -90,7 +90,6 @@ public class Menu extends JFrame implements ActionListener {
 	 * value.
 	 */
 	public void setMainMenu() {
-		
 		setComponent(ID);
 	}
 	
@@ -105,7 +104,7 @@ public class Menu extends JFrame implements ActionListener {
 			String id) {
 		JButton button = new JButton(buttontext);
 		button.setActionCommand(id);
-		button.setSize(DEFAULT_WIDTH/6, DEFAULT_HEIGHT/4);
+		button.setSize(DEFAULT_WIDTH / 6, DEFAULT_HEIGHT / 4);
 		button.addActionListener(this);
 		menu.add(button);
 		cards.add(comp, id);

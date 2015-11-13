@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -73,10 +72,10 @@ public class GTNComponent extends JPanel implements ActionListener {
 		JScrollPane scroller = new JScrollPane(history);
 		scroller.setPreferredSize(new 
 				Dimension(Menu.DEFAULT_WIDTH,
-						(int) (0.8 * Menu.DEFAULT_HEIGHT)));
+						(int) (0.9 * Menu.DEFAULT_HEIGHT)));
 		answerbox.setPreferredSize(new 
 				Dimension(Menu.DEFAULT_WIDTH,
-						(int) (0.2 * Menu.DEFAULT_HEIGHT)));
+						(int) (0.05 * Menu.DEFAULT_HEIGHT)));
 		this.add(scroller);
 		this.add(answerbox);
 		this.menu = menu;

@@ -142,7 +142,7 @@ public class GTNCore {
 				post(WRONG_INPUT_MESSAGE);
 				post("The number " + message + " was not parsable");
 			}
-		} else if (message.equals("menu")) {
+		} else if (message.equals("menu") || message.equals("quit")) {
 			gui.exit();
 		} else {
 			post(WRONG_INPUT_MESSAGE);
